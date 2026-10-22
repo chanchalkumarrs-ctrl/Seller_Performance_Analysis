@@ -1,0 +1,33 @@
+Column Name,Data Type,Description
+order_id,object,Unique identifier for each order.
+customer_id,object,Unique customer identifier assigned to a specific order.
+order_status,object,Current status of the order.
+order_purchase_timestamp,datetime,Timestamp when the order was placed.
+order_approved_at,datetime,Timestamp when the payment was approved.
+order_delivered_carrier_date,datetime,Timestamp when the order was handed over to the logistics carrier.
+order_delivered_customer_date,datetime,Timestamp when the customer received the order.
+order_estimated_delivery_date,datetime,Estimated delivery date provided to the customer.
+customer_unique_id,object,Permanent customer identifier across multiple orders.
+customer_zip_code_prefix,int64,First five digits of the customer's ZIP code.
+customer_city,object,Customer's city.
+customer_state,object,Customer's state.
+total_items,float64,Total number of products purchased in the order.
+total_price,float64,Total price of all products (excluding freight).
+total_freight,float64,Total freight cost for the order.
+shipping_limit_date,datetime,Latest date by which the seller should ship the order.
+review_score,float64,Average review score (1–5). Missing if no review exists.
+review_creation_date,datetime,Date when the customer submitted the review.
+seller_count,float64,Number of unique sellers in the order.
+seller_state_count,float64,Number of unique seller states involved in the order.
+seller_city_count,float64,Number of unique seller cities involved in the order.
+geolocation_lat,float64,Latitude corresponding to the customer's ZIP code prefix.
+geolocation_lng,float64,Longitude corresponding to the customer's ZIP code prefix.
+avg_weight,float64,Average product weight (grams).
+avg_length,float64,Average product length (cm).
+avg_height,float64,Average product height (cm).
+avg_width,float64,Average product width (cm).
+main_category,object,Most frequent product category in the order (English).
+total_payment,float64,Total amount paid for the order.
+num_payment_records,float64,Number of payment transactions associated with the order.
+max_installments,float64,Maximum number of installments used for payment.
+payment_type,object,Dominant payment method used for the order.

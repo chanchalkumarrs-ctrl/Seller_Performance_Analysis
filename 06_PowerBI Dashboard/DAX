@@ -1,0 +1,85 @@
+-- 1. Total Orders
+Total Orders =
+DISTINCTCOUNT('olist_order_level_dataset'[order_id])
+
+
+-- 2. Average Rating
+Average Rating =
+AVERAGE('olist_order_level_dataset'[review_score])
+
+
+-- 3. Total Sales
+Total Sales =
+SUM('olist_order_level_dataset'[total_payment])
+
+
+-- 4. Delivered Orders
+Delivered Orders =
+CALCULATE(
+    [Total Orders],
+    NOT ISBLANK('olist_order_level_dataset'[order_delivered_customer_date])
+)
+
+
+-- 5. Delayed Orders
+Delayed Orders =
+CALCULATE(
+    [Total Orders],
+    FILTER(
+        'olist_order_level_dataset',
+        NOT ISBLANK('olist_order_level_dataset'[order_delivered_customer_date])
+            && 'olist_order_level_dataset'[order_delivered_customer_date]
+                > 'olist_order_level_dataset'[order_estimated_delivery_date]
+    )
+)
+
+
+-- 6. Delay Rate %
+Delay Rate % =
+DIVIDE([Delayed Orders], [Delivered Orders], 0) * 100
+
+
+-- 7. Low Rating Orders
+Low Rating Orders =
+CALCULATE(
+    [Total Orders],
+    'olist_order_level_dataset'[review_score] <= 2
+)
+
+
+-- 8. Low Rating %
+Low Rating % =
+DIVIDE([Low Rating Orders], [Total Orders], 0) * 100
+
+
+-- 9. Average Delivery Days
+Average Delivery Days =
+AVERAGEX(
+    FILTER(
+        'olist_order_level_dataset',
+        NOT ISBLANK('olist_order_level_dataset'[order_delivered_customer_date])
+            && NOT ISBLANK('olist_order_level_dataset'[order_purchase_timestamp])
+    ),
+    DATEDIFF(
+        'olist_order_level_dataset'[order_purchase_timestamp],
+        'olist_order_level_dataset'[order_delivered_customer_date],
+        DAY
+    )
+)
+
+
+-- 10. On-Time or Early Orders
+On-Time or Early Orders =
+CALCULATE(
+    [Delivered Orders] - [Delayed Orders]
+)
+
+
+-- 11. Delivery Completion %
+Delivery Completion % =
+DIVIDE([Delivered Orders], [Total Orders], 0) * 100
+
+
+-- 12. Average Order Value
+Average Order Value =
+DIVIDE([Total Sales], [Total Orders], 0)

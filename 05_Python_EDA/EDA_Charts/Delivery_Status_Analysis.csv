@@ -1,0 +1,4 @@
+delivery_status_eda,unique_orders,average_rating
+Delayed,7827,2.566562255285826
+Not Delivered,2965,1.753253605346465
+On Time or Early,88649,4.294150561050117
